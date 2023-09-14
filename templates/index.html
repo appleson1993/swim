@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport"
+         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>智能防溺手環管理中心</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+   </head>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <body>
+      <div style="border-radius: 0" class="bg-dark p-5 rounded">
+         <h1 class="text-light">智能防溺手環管理中心</h1>
+         <p class="text-light lead ">為了打造更好的戲水環境！</p>
+      </div>
+      <div class="alert alert-secondary m-4">
+         目前手環用戶狀態:
+         <div class="badge bg-primary"> {{ btn_count }} </div>
+         總用戶數,
+         <div class="badge bg-success"> {{ ok }} </div>
+         安全 ,
+         <div class="badge bg-danger"> {{ fail }} </div>
+         危險。
+      </div>
+      <div class="container p-1">
+         <div class="justify-content-center text-center">
+            <div class="card">
+               <div class="card-header">
+                  管理中心 <div onclick="                     swal.fire({
+                     title: '設置',
+                     html: '',
+                     showCancelButton: false,
+                     confirmButtonColor: '#3085d6',
+                     confirmButtonText: '完成',
+                     })" class="badge badge-dark">  設置</div>
+               </div>
+               <div class="card-body">
+                  <div style="" class="justify-content-center row">
+                     <script>
+                        setInterval(function () {
+                        $(document).ready(function () {
+                            $.ajax({
+                            url: "/button",
+                            type: "GET",
+                            success: function (data) {
+                                $("#putme").html(data);
+                            }
+                            });
+                        });
+                        }, 1000);
+                     </script>
+                     <div id="putme"></div>
+                     <div class="putme" id="putme"></div>
+                  </div>
+               </div>
+               <div class="card" style="margin: 10px 0;">
+                  <div class="card-header">
+                     使用說明
+                  </div>
+                  <div class="accordion-body m-4">
+
+                     <button class="btn btn-success">正常</button>
+                     <p>綠燈表示設備已連接，目前正常使用中。</p>
+                      <button class="btn btn-warning">超時</button>
+                     <p> 黃燈表示超時，手環可能超出使用範圍，請加強WIFI設備。<br>
+                      或是手環沒電，手環損壞等故障。 可觀察後派救生員了解。</p>
+                      <button class="btn btn-danger">危險</button>
+                     <p> 紅燈表示使用者目前可能有危險，請派救生員了解。</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+   <script src=" {{ url_for('static',filename='js/script.js') }} "></script>
+</html>

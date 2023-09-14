@@ -1,0 +1,52 @@
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+
+<div style="" class="justify-content-center row">
+                  {% for i in range(btn_count) %}
+                  {% if status[i] == 'ok' %}
+                  <button class="btn btn-success text-truncate col-auto" onclick="
+                     swal.fire({
+                     title: '手環用戶 #{{ i }}',
+                     html: '目前狀況為: {{ status[i] }} <br> 手環MAC地址：{{ mac_list[i] }} <br>手環IP地址： {{ pinglist[i] }} <br>報警次數： {{ warn[i] }} <br>上次警報時間： {{ warntime[i] }} <br> 開機時間： {{ times[i] }}  <br>上次資料獲取： {{ last_update[i] }} <br> 運動強度：{{ count[i]  }}',
+                     icon: 'info',
+                     showCancelButton: false,
+                     confirmButtonColor: '#3085d6',
+                     confirmButtonText: '確定',
+                     })
+                     "
+                     style="margin:2px ;max-width: 90px">#{{ i }} 正常
+                  </button>
+                    {% elif status[i] == 'warn' %}
+                                        <button class="btn btn-warning text-truncate col-auto" onclick="
+                     swal.fire({
+                     title: '手環用戶 #{{ i }}',
+                     html: '目前狀況為: {{ status[i] }} <br> 手環MAC地址：{{ mac_list[i] }} <br>手環IP地址： {{ pinglist[i] }} <br>報警次數： {{ warn[i] }} <br>上次警報時間： {{ warntime[i] }} <br> 開機時間： {{ times[i] }}  <br>上次資料獲取： {{ last_update[i] }} <br> 運動強度：{{ count[i]  }}',
+                     icon: 'info',
+                     showCancelButton: false,
+                     confirmButtonColor: '#3085d6',
+                     confirmButtonText: '確定',
+                     })
+                     "
+                     style="margin:2px ;max-width: 90px">#{{ i }}超時
+                  {% else %}
+                  <button class="btn btn-danger text-truncate col-auto" onclick="
+                     swal.fire({
+                     title: '手環用戶 #{{ i }}',
+                     html: '目前狀況為: {{ status[i] }} <br> 手環MAC地址：{{ mac_list[i] }} <br>手環IP地址： {{ pinglist[i] }}<br>報警次數： {{ warn[i] }}  <br>上次警報時間： {{ warntime[i] }} <br>上次資料獲取： {{ last_update[i] }} <br> 開機時間： {{ times[i] }} <br> 運動強度：{{ count[i]  }} <br><button class=btn-warning onclick=cancelRequest({{ i }})>關閉警報</button>',
+                     icon: 'warning',
+                     showCancelButton: false,
+                     confirmButtonColor: '#3085d6',
+                     confirmButtonText: '確定',
+                     })"
+                     style="margin:2px ;max-width: 90px">#{{ i }}危險
+                  </button>
+                  {% endif %}
+                  {% endfor %}
+               </div>

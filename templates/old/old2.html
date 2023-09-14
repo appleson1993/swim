@@ -1,0 +1,88 @@
+<!doctype html>
+<meta http-equiv="refresh" content="5">
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport"
+         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>智能防溺手環管理中心</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+   </head>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.js"></script>
+   <!--導入sweetalert cdn-->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <body>
+      <div style="border-radius: 0px" class="bg-dark p-5 rounded">
+         <h1 class="text-light">智能防溺手環管理中心</h1>
+         <p class="text-light lead ">為了打造更好的戲水環境！</p>
+      </div>
+      <div class="alert alert-secondary m-4">
+         目前手環用戶狀態:
+         <div class="badge bg-primary"> {{ btn_count }} </div>
+         總用戶數,
+
+         <div class="badge bg-success"> {{ ok }} </div>
+         安全 ,
+         <div class="badge bg-danger"> {{ fail }} </div>
+         危險。
+      </div>
+
+
+      <div class="container p-1">
+      <div class="justify-content-center text-center">
+         <div class="card">
+            <div class="card-header">
+               管理中心
+            </div>
+            <div class="card-body">
+               <div style="" class="justify-content-center row">
+                  {% for i in range(btn_count) %}
+                  {% if status[i] == 'ok' %}
+                  <button class="btn btn-success text-truncate col-auto" onclick="
+                     swal.fire({
+                     title: '手環用戶 #{{ i }}',
+                     html: '目前狀況為: {{ status[i] }} <br> 手環MAC地址：{{ mac_list[i] }} <br>手環IP地址： {{ pinglist[i] }}<br>警告次數：',
+                     icon: 'info',
+                     showCancelButton: false,
+                     confirmButtonColor: '#3085d6',
+                     confirmButtonText: '確定',
+                     })
+                     "
+                     style="margin:2px ;max-width: 90px">#{{ i }}正常
+                  </button>
+                  {% else %}
+                  <button class="btn btn-danger text-truncate col-auto" onclick="
+                     swal.fire({
+                     title: '手環用戶 #{{ i }}',
+                     html: '目前狀況為: {{ status[i] }} <br> 手環MAC地址：{{ mac_list[i] }} <br>手環IP地址： {{ pinglist[i] }}<br>警告次數：',
+                     icon: 'warning',
+                     showCancelButton: false,
+                     confirmButtonColor: '#3085d6',
+                     confirmButtonText: '確定',
+                     })"
+                     style="margin:2px ;max-width: 90px">#{{ i }}危險
+                  </button>
+                  {% endif %}
+                  {% endfor %}
+               </div>
+            </div>
+            <div class="card" style="margin: 10px 0;">
+               <div class="card-header">
+                  使用說明
+               </div>
+               <div class="accordion-body m-4">
+                  <button class="btn btn-danger">危險</button>
+                  <p> 紅燈表示使用者目前可能有危險，請派救生員了解。</p>
+                  <button class="btn btn-success">正常</button>
+                  <p>綠燈表示設備已連接，目前正常使用中。</p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+   <!--導入jquery cdn -->
+   <script src=" {{ url_for('static',filename='js/script.js') }} "></script>
+</html>
